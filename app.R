@@ -132,9 +132,11 @@ server <- function(input, output) {
     df <- simulation()
     
     df$P1_frac <- df$P1 / (df$P1 + df$P2)
+    df$P2_frac <- df$P2 / (df$P1 + df$P2)
     
     ggplot(df, aes(time, P1_frac)) +
-      geom_line(color = "blue", linewidth = 1) +
+      geom_line(data=df, aes(time, P1_frac), color = "red", linewidth = 1) +
+      geom_line(data=df, aes(time, P2_frac), color = "darkgreen", linewidth = 1) +
       geom_hline(yintercept = 0.5, linetype = "dashed", color = "red") +
       ylim(0, 1) +
       theme_bw() +
